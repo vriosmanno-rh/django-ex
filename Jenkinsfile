@@ -21,7 +21,7 @@ pipeline {
 
           sh "env"
 
-          dir ("${HOME}/tools") {
+          dir ("${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation") {
             sh "pwd && ls"
           }
 
