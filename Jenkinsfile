@@ -11,7 +11,7 @@ pipeline {
           // sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_URL} -Dsonar.python.pylint.reportPath=./pylint-report'
           // sh "${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -X -Dsonar.projectKey=mytestproject -Dproject.settings=. -Dsonar.projectName=mytestproject"
 
-          sh "echo env"
+          sh "env"
           sh "sonar-scanner -X -Dsonar.projectKey=${env.SONAR_TOKEN} -Dsonar.host.url=${env.SONAR_URL}"
         }
       }
