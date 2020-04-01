@@ -1,10 +1,8 @@
 pipeline {
-  agent any
+  agent { node {label 'master'} }
 
   stages {
     stage('SonarQube Analysis') {
-      agent any
-
       environment {
         SONAR_SCANNER_PATH="${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
         SONAR_PROJECT_KEY="rhel"
