@@ -21,7 +21,9 @@ pipeline {
 
           sh "env"
 
-          sh "pwd && ls"
+          dir ("${HOME}") {
+            sh "pwd && ls"
+          }
 
           sh "${SONAR_SCANNER_PATH}/bin/sonar-scanner -X -Dsonar.projectKey=${env.SONAR_AUTH_TOKEN} -Dsonar.host.url=${env.SONAR_HOST_URL}"
         }
