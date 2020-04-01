@@ -3,7 +3,7 @@ pipeline {
 
   stages {
     stage('SonarQube Analysis') {
-      agent { label 'maven' }
+      agent any
 
       steps {
         withSonarQubeEnv('SonarQube') {
