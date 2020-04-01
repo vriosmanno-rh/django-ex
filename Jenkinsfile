@@ -12,7 +12,7 @@ pipeline {
           // sh "${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube/bin/sonar-scanner -X -Dsonar.projectKey=mytestproject -Dproject.settings=. -Dsonar.projectName=mytestproject"
 
           sh "env"
-          sh "sonar-scanner -X -Dsonar.projectKey=${env.SONAR_TOKEN} -Dsonar.host.url=${env.SONAR_URL}"
+          sh "sonar-scanner -X -Dsonar.projectKey=${env.SONAR_AUTH_TOKEN} -Dsonar.host.url=${env.SONAR_HOST_URL}"
         }
       }
     }
