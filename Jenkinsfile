@@ -21,7 +21,7 @@ pipeline {
 
           sh "env"
 
-          dir ("${HOME}") {
+          dir ("${HOME}/tools") {
             sh "pwd && ls"
           }
 
