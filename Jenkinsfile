@@ -19,12 +19,10 @@ pipeline {
         SONAR_PROJECT_NAME="django-ex"
         SONAR_PROJECT_SETTING="."
         SONAR_SOURCES="."
+        scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       }
 
       steps {
-        // This is the name of the SonarQube Scanner you defined under Jenkins --> Global Tool Configuration
-        def scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
-        
         withSonarQubeEnv('SonarQube') {
           // sh 'ls -la && pwd'
           sh 'pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > ./pylint-report'
