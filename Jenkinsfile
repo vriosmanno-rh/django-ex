@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('SonarQube Analysis') {
       agent {
-        kubernetes {
+        openshift {
           label "${env.MVN_PYTHON_AGENT_LABEL}"
           defaultContainer 'jnlp'
           yamlFile 'mvn-python.yaml'
