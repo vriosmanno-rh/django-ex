@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+spec:
+  conatainers:
+    - name: 'jnlp'
+      args: '${computer.jnlpmac} ${computer.name}'
+      image: 'quay.io/vriosmanno/jenkins-slave-mvn-python'
+      command: []
+      tty: false
+      imagePullPolicy: Always
+      resources:
+          requests:
+            memory: '1Gi'
+  serviceAccountName: 'jenkins'
+      

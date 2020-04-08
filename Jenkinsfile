@@ -23,16 +23,8 @@ pipeline {
         agent {
           kubernetes {
             label "${env.MVN_PYTHON_AGENT_LABEL}"
-            cloud "openshift"
-            serviceAccount "${env.MVN_PYTHON_AGENT_SVCACCT}"
-            containerTemplate {
-              name 'jnlp'
-              image ${env.MVN_PYTHON_AGENT_IMAGE}
-              alwaysPullImage true
-              args: '${computer.jnlpmac} ${computer.name}'
-              ttyEnabled false
-              resourceRequestMemory "${env.MVN_PYTHON_AGENT_CONTAINER_MEMORY_SIZE}"
-            }
+            defaultContainer 'jnlp'
+            yamlFile 'mvn-python.yaml'
           }
         }
 
