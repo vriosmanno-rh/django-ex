@@ -13,9 +13,6 @@ pipeline {
     stage('SonarQube Analysis') {
       agent { label "${env.MVN_PYTHON_AGENT_LABEL}" }
 
-      // This is the name of the SonarQube Scanner you defined under Jenkins --> Global Tool Configuration
-      def scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
-
       environment {
         SONAR_SCANNER_PATH="${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
         SONAR_PROJECT_KEY="django-ex"
@@ -25,6 +22,9 @@ pipeline {
       }
 
       steps {
+        // This is the name of the SonarQube Scanner you defined under Jenkins --> Global Tool Configuration
+        def scannerHome = tool name: 'SonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+        
         withSonarQubeEnv('SonarQube') {
           // sh 'ls -la && pwd'
           sh 'pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > ./pylint-report'
