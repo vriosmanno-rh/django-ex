@@ -14,8 +14,6 @@ pipeline {
       agent {
         node {
           label "${env.MVN_PYTHON_AGENT_LABEL}"
-          defaultContainer 'jnlp'
-          yamlFile 'mvn-python.yaml'
         }
       }
 
