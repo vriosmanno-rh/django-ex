@@ -13,8 +13,8 @@ pipeline {
     stage('SonarQube Analysis') {
       environment {
         SONAR_SCANNER_PATH="${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
-        SONAR_PROJECT_KEY="rhel"
-        SONAR_PROJECT_NAME="rhel"
+        SONAR_PROJECT_KEY="django-ex"
+        SONAR_PROJECT_NAME="django-ex"
         SONAR_PROJECT_SETTING="."
         SONAR_SOURCES="."
       }
