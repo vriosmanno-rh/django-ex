@@ -12,9 +12,7 @@ pipeline {
   stages {
     stage('SonarQube Analysis') {
       agent {
-        node {
-          label "${env.MVN_PYTHON_AGENT_LABEL}"
-        }
+        label "${env.MVN_PYTHON_AGENT_LABEL}"
       }
 
       environment {
