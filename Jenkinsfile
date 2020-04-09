@@ -14,8 +14,8 @@ pipeline {
       agent { label "${env.MVN_PYTHON_AGENT_LABEL}" }
 
       environment {
-        scannerHome = tool 'SonarQube'
-        graphHome = tool 'SonarGraph'
+        scannerHome = tool 'sonar-scanner-tool'
+        // graphHome = tool 'SonarGraph'
 
         SONAR_PROJECT_NAME="django-ex"
         SONAR_PROJECT_KEY="django-ex"
@@ -35,7 +35,7 @@ pipeline {
           }
         }
 
-        withSonarQubeEnv('SonarQube') {
+        withSonarQubeEnv('sonar') {
           // sh 'ls -la && pwd'
           sh "${scannerHome}/bin/sonar-scanner -X \
             -Dsonar.projectName=${SONAR_PROJECT_NAME} \
