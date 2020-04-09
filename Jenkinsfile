@@ -15,6 +15,7 @@ pipeline {
 
       environment {
         scannerHome = tool 'SonarQube'
+        graphHome = tool 'SonarGraph'
 
         SONAR_PROJECT_NAME="django-ex"
         SONAR_PROJECT_KEY="django-ex"
