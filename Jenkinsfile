@@ -30,7 +30,7 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           // sh 'ls -la && pwd'
-          sh 'sleep 2m'
+          // sh 'sleep 2m'
           sh 'pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" 2>&1 pylint-report'
           sh 'echo ${scannerHome}'
           sh "echo ${scannerHome}"
