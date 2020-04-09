@@ -16,7 +16,7 @@ pipeline {
       environment {
         SONAR_SCANNER_PATH="${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
         scannerHome = tool 'SonarQube'
-        SONAR_PROJECT_NAME"-Dsonar.projectName=django-ex"
+        SONAR_PROJECT_NAME="-Dsonar.projectName=django-ex"
         SONAR_PROJECT_KEY="-Dsonar.projectKey=django-ex"
         SONAR_HOST_URL="-Dsonar.host.url=${env.SONAR_HOST_URL}"
         SONAR_PROJECT_SETTING="-Dsonar.settings=."
