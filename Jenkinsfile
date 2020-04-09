@@ -16,8 +16,6 @@ pipeline {
       environment {
         scannerHome = tool 'SonarQube'
 
-        SONAR_SCANNER_PATH="/tmp/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
-
         SONAR_PROJECT_NAME="-Dsonar.projectName=django-ex"
         SONAR_PROJECT_KEY="-Dsonar.projectKey=django-ex"
         SONAR_HOST_URL="-Dsonar.host.url=${env.SONAR_HOST_URL}"
@@ -31,12 +29,16 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
           // sh 'ls -la && pwd'
           // sh 'sleep 2m'
-          sh 'echo ${scannerHome}'
-          sh "echo ${scannerHome}"
+          sh "echo ${SONAR_PROJECT_NAME}"
+          sh "echo ${SONAR_PROJECT_KEY}"
+          sh "echo ${SONAR_HOST_URL}"
+          sh "echo ${SONAR_PROJECT_SETTING}"
+          sh "echo ${SONAR_SOURCES}"
+          sh "echo ${SONAR_SOURCE_ENCODING}"
 
-          sh "pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' 2>&1 pylint-report"
+          // sh "pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' 2>&1 pylint-report"
 
-          sh "${scannerHome}/bin/sonar-scanner -X ${SONAR_PROJECT_NAME} ${SONAR_PROJECT_KEY} ${SONAR_HOST_URL} ${SONAR_PROJECT_SETTING} ${SONAR_SOURCES} ${SONAR_SOURCE_ENCODING} ${SONAR_PYTHON_PYLINT_REPORTPATH}"
+          sh "${scannerHome}/bin/sonar-scanner -X ${SONAR_PROJECT_NAME} ${SONAR_PROJECT_KEY} ${SONAR_HOST_URL} ${SONAR_PROJECT_SETTING} ${SONAR_SOURCES} ${SONAR_SOURCE_ENCODING}"
 
           // sh "${SONAR_SCANNER_PATH}/bin/sonar-scanner -X -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.settings=${SONAR_PROJECT_SETTING} -Dsonar.sources=${SONAR_SOURCES} -Dsonar.SourceEncoding=UTF-8"
         }
