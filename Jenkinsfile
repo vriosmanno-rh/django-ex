@@ -22,7 +22,7 @@ pipeline {
         SONAR_PROJECT_SETTING="."
         SONAR_SOURCES="."
         SONAR_SOURCE_ENCODING="UTF-8"
-        SONAR_PYTHON_PYLINT_REPORTPATH="-Dsonar.python.pylint.reportPath='pylint-report'"
+        SONAR_PYTHON_PYLINT_REPORTPATH="pylint-report"
       }
 
       steps {
@@ -36,7 +36,10 @@ pipeline {
           sh "echo ${SONAR_SOURCES}"
           sh "echo ${SONAR_SOURCE_ENCODING}"
 
-          // sh "pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' 2>&1 pylint-report"
+          sh "pylint --load-plugins pylint_django \
+            ./project ./welcome \
+            -r n --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' \
+            2>&1 pylint-report"
 
           sh "${scannerHome}/bin/sonar-scanner -X \
             -Dsonar.projectName=${SONAR_PROJECT_NAME} \
@@ -44,7 +47,8 @@ pipeline {
             -Dsonar.host.url=${SONAR_HOST_URL} \
             -Dsonar.settings=${SONAR_PROJECT_SETTING} \
             -Dsonar.sources=${SONAR_SOURCES} \
-            -Dsonar.SourceEncoding=${SONAR_SOURCE_ENCODING}"
+            -Dsonar.SourceEncoding=${SONAR_SOURCE_ENCODING} \
+            -Dsonar.python.pylint.reportPath=${SONAR_PYTHON_PYLINT_REPORTPATH}"
 
           // sh "${SONAR_SCANNER_PATH}/bin/sonar-scanner -X -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.settings=${SONAR_PROJECT_SETTING} -Dsonar.sources=${SONAR_SOURCES} -Dsonar.SourceEncoding=UTF-8"
         }
