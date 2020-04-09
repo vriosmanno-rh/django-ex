@@ -32,6 +32,8 @@ pipeline {
           // sh 'ls -la && pwd'
           sh 'sleep 2m'
           sh 'pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" 2>&1 pylint-report'
+          sh 'echo ${scannerHome}'
+          sh "echo ${scannerHome}"
           sh '${scannerHome}/bin/sonar-scanner -X ${env.SONAR_PROJECT_NAME} ${env.SONAR_PROJECT_KEY} ${env.SONAR_HOST_URL} ${env.SONAR_PROJECT_SETTING} ${env.SONAR_SOURCES} ${env.SONAR_SOURCE_ENCODING} ${env.SONAR_PYTHON_PYLINT_REPORTPATH}'
 
           // sh "${SONAR_SCANNER_PATH}/bin/sonar-scanner -X -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.settings=${SONAR_PROJECT_SETTING} -Dsonar.sources=${SONAR_SOURCES} -Dsonar.SourceEncoding=UTF-8"
