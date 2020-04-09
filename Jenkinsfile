@@ -15,6 +15,7 @@ pipeline {
 
       environment {
         scannerHome = tool 'SonarQube'
+
         SONAR_SCANNER_PATH="/tmp/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
         SONAR_PROJECT_NAME="-Dsonar.projectName=django-ex"
         SONAR_PROJECT_KEY="-Dsonar.projectKey=django-ex"
@@ -28,7 +29,7 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           // sh 'ls -la && pwd'
-          // sh 'sleep 2m'
+          sh 'sleep 2m'
           sh 'pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" 2>&1 pylint-report'
           sh '${SONAR_SCANNER_PATH}/bin/sonar-scanner -X ${SONAR_PROJECT_NAME} ${SONAR_PROJECT_KEY} ${SONAR_HOST_URL} ${SONAR_PROJECT_SETTING} ${SONAR_SOURCES} ${SONAR_SOURCE_ENCODING} ${SONAR_PYTHON_PYLINT_REPORTPATH}'
 
