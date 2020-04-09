@@ -37,7 +37,6 @@ pipeline {
 
         withSonarQubeEnv('SonarQube') {
           // sh 'ls -la && pwd'
-          // sh 'sleep 2m'
           sh "${scannerHome}/bin/sonar-scanner -X \
             -Dsonar.projectName=${SONAR_PROJECT_NAME} \
             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
@@ -46,6 +45,8 @@ pipeline {
             -Dsonar.sources=${SONAR_SOURCES} \
             -Dsonar.SourceEncoding=${SONAR_SOURCE_ENCODING} \
             -Dsonar.python.pylint.reportPath=${SONAR_PYTHON_PYLINT_REPORTPATH}"
+
+          sh 'sleep 2m'
 
           // sh "${SONAR_SCANNER_PATH}/bin/sonar-scanner -X -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.settings=${SONAR_PROJECT_SETTING} -Dsonar.sources=${SONAR_SOURCES} -Dsonar.SourceEncoding=UTF-8"
         }
