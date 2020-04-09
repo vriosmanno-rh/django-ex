@@ -26,10 +26,12 @@ pipeline {
 
       steps {
         script {
-          sh "pylint --load-plugins pylint_django \
-            ./project ./welcome \
-            -r n --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' \
-            2>&1 ${SONAR_PYTHON_PYLINT_REPORTPATH}"
+          try {
+            sh "pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template='{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}' 2>&1 ${SONAR_PYTHON_PYLINT_REPORTPATH}"
+          } catch (err) {
+            echo err.getMessage()
+            echo "Error detected, but will continue"
+          }
         }
 
         withSonarQubeEnv('SonarQube') {
