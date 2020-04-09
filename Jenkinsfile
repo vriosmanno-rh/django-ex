@@ -16,13 +16,13 @@ pipeline {
       environment {
         scannerHome = tool 'SonarQube'
 
-        SONAR_PROJECT_NAME="-Dsonar.projectName=django-ex"
-        SONAR_PROJECT_KEY="-Dsonar.projectKey=django-ex"
-        SONAR_HOST_URL="-Dsonar.host.url=${env.SONAR_HOST_URL}"
-        SONAR_PROJECT_SETTING="-Dsonar.settings=."
-        SONAR_SOURCES="-Dsonar.sources=."
-        SONAR_SOURCE_ENCODING="-Dsonar.SourceEncoding=UTF-8"
-        SONAR_PYTHON_PYLINT_REPORTPATH="-Dsonar.python.pylint.reportPath=pylint-report"
+        SONAR_PROJECT_NAME="-Dsonar.projectName='django-ex'"
+        SONAR_PROJECT_KEY="-Dsonar.projectKey='django-ex'"
+        SONAR_HOST_URL="-Dsonar.host.url='${env.SONAR_HOST_URL}'"
+        SONAR_PROJECT_SETTING="-Dsonar.settings='.'"
+        SONAR_SOURCES="-Dsonar.sources='.'"
+        SONAR_SOURCE_ENCODING="-Dsonar.SourceEncoding='UTF-8'"
+        SONAR_PYTHON_PYLINT_REPORTPATH="-Dsonar.python.pylint.reportPath='pylint-report'"
       }
 
       steps {
