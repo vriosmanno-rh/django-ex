@@ -18,7 +18,7 @@ pipeline {
 
         SONAR_PROJECT_NAME="-Dsonar.projectName='django-ex'"
         SONAR_PROJECT_KEY="-Dsonar.projectKey='django-ex'"
-        SONAR_HOST_URL="-Dsonar.host.url='${env.SONAR_HOST_URL}'"
+        SONAR_HOST_URL="-Dsonar.host.url='https://sonarqube-claude-devsecops.apps.ccsd.rht-labs.com'"
         SONAR_PROJECT_SETTING="-Dsonar.settings='.'"
         SONAR_SOURCES="-Dsonar.sources='.'"
         SONAR_SOURCE_ENCODING="-Dsonar.SourceEncoding='UTF-8'"
