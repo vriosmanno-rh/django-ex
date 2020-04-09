@@ -14,8 +14,8 @@ pipeline {
       agent { label "${env.MVN_PYTHON_AGENT_LABEL}" }
 
       environment {
-        SONAR_SCANNER_PATH="${HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
         scannerHome = tool 'SonarQube'
+        SONAR_SCANNER_PATH="/tmp/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube"
         SONAR_PROJECT_NAME="-Dsonar.projectName=django-ex"
         SONAR_PROJECT_KEY="-Dsonar.projectKey=django-ex"
         SONAR_HOST_URL="-Dsonar.host.url=${env.SONAR_HOST_URL}"
@@ -30,7 +30,7 @@ pipeline {
           // sh 'ls -la && pwd'
           sh 'sleep 2m'
           sh 'pylint --load-plugins pylint_django ./project ./welcome -r n --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint-report'
-          sh '${scannerHome}/bin/sonar_scanner -X ${SONAR_PROJECT_NAME} ${SONAR_PROJECT_KEY} ${SONAR_HOST_URL} ${SONAR_PROJECT_SETTING} ${SONAR_SOURCES} ${SONAR_SOURCE_ENCODING} ${SONAR_PYTHON_PYLINT_REPORTPATH}'
+          sh '${SONAR_SCANNER_PATH}/bin/sonar_scanner -X ${SONAR_PROJECT_NAME} ${SONAR_PROJECT_KEY} ${SONAR_HOST_URL} ${SONAR_PROJECT_SETTING} ${SONAR_SOURCES} ${SONAR_SOURCE_ENCODING} ${SONAR_PYTHON_PYLINT_REPORTPATH}'
 
           // sh "${SONAR_SCANNER_PATH}/bin/sonar-scanner -X -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.settings=${SONAR_PROJECT_SETTING} -Dsonar.sources=${SONAR_SOURCES} -Dsonar.SourceEncoding=UTF-8"
         }
