@@ -5,16 +5,17 @@ metadata:
   labels:
     jenkins: "slave"
     jenkins/mvn-python: "true"
-  name: "mvn-python-8kxbn"
+  name: "mvn-python"
 spec:
   containers:
   - args:
-    - "********"
-    - "mvn-python-8kxbn"
+    - "${computer.jnlpmac} ${computer.name}"
     env:
     - name: "JENKINS_SECRET"
       value: "********"
     - name: "http_proxy"
+      value: ""
+    - name: "https_proxy"
       value: ""
     - name: "no_proxy"
       value: ""
@@ -22,8 +23,6 @@ spec:
       value: "172.30.213.245:50000"
     - name: "JENKINS_AGENT_NAME"
       value: "mvn-python-8kxbn"
-    - name: "https_proxy"
-      value: ""
     - name: "JENKINS_NAME"
       value: "mvn-python-8kxbn"
     - name: "JENKINS_AGENT_WORKDIR"

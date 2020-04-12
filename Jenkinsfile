@@ -2,6 +2,9 @@ pipeline {
   agent { node { label 'master' } }
 
   environment {
+    JENKINS_BASE_AGENT_ARGS = '${computer.jnlpmac} ${computer.name}'
+    JENKINS_BASE_AGENT_IMAGE = "registry.redhat.io/openshift3/jenkins-slave-base-rhel7"
+    JENKINS_BASE_AGENT_NAME = 'jnlp'
     MVN_PYTHON_AGENT_CONTAINER_MEMORY_SIZE = "1Gi"
     MVN_PYTHON_AGENT_IMAGE = "quay.io/vriosmanno/jenkins-slave-mvn-python"
     MVN_PYTHON_AGENT_LABEL = "mvn-python"
@@ -11,7 +14,48 @@ pipeline {
 
   stages {
     stage('SonarQube Analysis') {
-      agent { label "${env.MVN_PYTHON_AGENT_LABEL}" }
+      agent {
+        kubernetes {
+          yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins: "slave"
+    jenkins/mvn-python: "true"
+  name: "mvn-python"
+spec:
+  containers:
+  - name: mvn-python-slave
+    image: quay.io/vriosmanno/jenkins-slave-mvn-python
+    imagePullPolicy: Always
+    resources:
+      requests: {
+        memory: 1Gi
+      }
+    securityContext:
+      privileged: false
+    tty: false
+  - name: "${env.JENKINS_BASE_AGENT_NAME}"
+    args:
+    - "${env.JENKINS_BASE_AGENT_ARGS}"
+    iamge: "${env.JENKINS_BASE_AGENT_IMAGE}"
+    volumeMounts:
+    - mountPath: "/tmp"
+      name: "workspace-volume"
+      readOnly: false
+    workingDir: "/tmp"
+  restartPolicy: "Never"
+  volumes:
+  - emptyDir:
+      medium: ""
+    name: "workspace-volume"
+"""
+        }
+        label "${env.MVN_PYTHON_AGENT_LABEL}"
+
+
+      }
 
       environment {
         scannerHome = tool 'sonar-scanner-tool'
