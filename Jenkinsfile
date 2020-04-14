@@ -52,9 +52,6 @@ spec:
     name: "workspace-volume"
 """
         }
-        label "${env.MVN_PYTHON_AGENT_LABEL}"
-
-
       }
 
       environment {
