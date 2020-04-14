@@ -22,30 +22,7 @@ pipeline {
         kubernetes {
           cloud "openshift"
           label "mvn-python"
-          yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    jenkins: "slave"
-    jenkins/mvn-python: "true"
-  name: "mvn-python"
-spec:
-  containers:
-  - name: 'jnlp'
-    args:
-    - '${computer.jnlpmac} ${computer.name}'
-    image: quay.io/vriosmanno/jenkins-slave-mvn-python
-    imagePullPolicy: Always
-    resources:
-      requests: {
-        memory: "1Gi"
-      }
-    securityContext:
-      privileged: false
-    tty: false
-  restartPolicy: "Never"
-"""
+          yamlFile "mvn-python.yaml"
         }
       }
 
