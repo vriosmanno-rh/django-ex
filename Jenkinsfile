@@ -39,7 +39,7 @@ spec:
     imagePullPolicy: Always
     resources:
       requests: {
-        memory: "${env.MVN_PYTHON_AGENT_CONTAINER_MEMORY_SIZE}
+        memory: "${env.MVN_PYTHON_AGENT_CONTAINER_MEMORY_SIZE}"
       }
     securityContext:
       privileged: false
