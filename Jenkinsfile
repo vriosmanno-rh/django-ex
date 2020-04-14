@@ -22,7 +22,6 @@ pipeline {
         kubernetes {
           cloud "openshift"
           label "mvn-python"
-          inheritFrom "maven"
           yamlFile "mvn-python.yaml"
         }
       }
