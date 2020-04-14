@@ -21,7 +21,7 @@ pipeline {
       agent {
         kubernetes {
           cloud "openshift"
-          label "${env.MVN_PYTHON_AGENT_LABEL}"
+          label "mvn-python"
           yaml """
 apiVersion: v1
 kind: Pod
@@ -29,17 +29,17 @@ metadata:
   labels:
     jenkins: "slave"
     jenkins/mvn-python: "true"
-  name: "${env.MVN_PYTHON_AGENT_LABEL}"
+  name: "mvn-python"
 spec:
   containers:
-  - name: "${env.JENKINS_BASE_AGENT_NAME}"
+  - name: 'jnlp'
     args:
-    - "${env.JENKINS_BASE_AGENT_ARGS}"
+    - '${computer.jnlpmac} ${computer.name}'
     image: quay.io/vriosmanno/jenkins-slave-mvn-python
     imagePullPolicy: Always
     resources:
       requests: {
-        memory: "${env.MVN_PYTHON_AGENT_CONTAINER_MEMORY_SIZE}"
+        memory: "1Gi"
       }
     securityContext:
       privileged: false
