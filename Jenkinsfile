@@ -44,10 +44,6 @@ spec:
     securityContext:
       privileged: false
     tty: false
-    volumeMounts:
-    - mountPath: "/tmp"
-      name: "workspace-volume"
-      readOnly: false
     workingDir: "/tmp"
   restartPolicy: "Never"
   volumes:
