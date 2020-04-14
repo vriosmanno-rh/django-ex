@@ -32,20 +32,18 @@ metadata:
   name: "mvn-python"
 spec:
   containers:
-  - name: mvn-python-slave
+  - name: "${env.JENKINS_BASE_AGENT_NAME}"
+    args:
+    - "${env.JENKINS_BASE_AGENT_ARGS}"
     image: quay.io/vriosmanno/jenkins-slave-mvn-python
     imagePullPolicy: Always
     resources:
       requests: {
-        memory: 1Gi
+        memory: "${env.MVN_PYTHON_AGENT_CONTAINER_MEMORY_SIZE}
       }
     securityContext:
       privileged: false
     tty: false
-  - name: "${env.JENKINS_BASE_AGENT_NAME}"
-    args:
-    - "${env.JENKINS_BASE_AGENT_ARGS}"
-    iamge: "${env.JENKINS_BASE_AGENT_IMAGE}"
     volumeMounts:
     - mountPath: "/tmp"
       name: "workspace-volume"
