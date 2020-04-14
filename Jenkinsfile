@@ -22,7 +22,7 @@ pipeline {
         kubernetes {
           cloud "openshift"
           label "mvn-python"
-          yamlFile "mvn-python.yaml"
+          yamlFile "openshift/jenkins-slaves/mvn-python.yaml"
         }
       }
 
