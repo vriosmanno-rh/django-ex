@@ -44,7 +44,6 @@ spec:
     securityContext:
       privileged: false
     tty: false
-    workingDir: "/tmp"
   restartPolicy: "Never"
 """
         }
