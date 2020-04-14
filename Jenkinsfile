@@ -21,7 +21,7 @@ pipeline {
       agent {
         kubernetes {
           cloud "openshift"
-          label "mvn-python"
+          label "${env.MVN_PYTHON_AGENT_LABEL}"
           yaml """
 apiVersion: v1
 kind: Pod
@@ -29,7 +29,7 @@ metadata:
   labels:
     jenkins: "slave"
     jenkins/mvn-python: "true"
-  name: "mvn-python"
+  name: "${env.MVN_PYTHON_AGENT_LABEL}"
 spec:
   containers:
   - name: "${env.JENKINS_BASE_AGENT_NAME}"
@@ -44,10 +44,6 @@ spec:
     securityContext:
       privileged: false
     tty: false
-    volumeMounts:
-    - mountPath: "/tmp"
-      name: "workspace-volume"
-      readOnly: false
     workingDir: "/tmp"
   restartPolicy: "Never"
 """
