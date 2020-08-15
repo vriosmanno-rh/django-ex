@@ -1,0 +1,4 @@
+git:
+- branch: master
+  commit: 090522300f6cfe9476308128684b1624e980df7b
+  url: https://github.com/sclorg/django-ex
